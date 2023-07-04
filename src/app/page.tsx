@@ -1,113 +1,137 @@
-import Image from 'next/image'
+import React from "react";
+import Image from "next/image";
+import Heroai from "../components/heroai";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <div className="w-full relative bg-white p-8">
+      <div className="w-full min-h-[75vh] bg-gradient-to-r from-slate-700 via-indigo-800 to-purple-600 rounded-tl-[48px] rounded-tr-[48px] rounded-bl-[48px] rounded-br-[300px] p-32">
+        <div className="w-full h-full flex-col justify-start items-start gap-[15px] inline-flex">
+          <div className="w-full h-full flex-col justify-start items-start gap-[15px] inline-flex">
+            <div className="self-stretch grow shrink basis-0 flex-col justify-start items-start gap-[15px] flex">
+              <div className="whitespace-pre-line self-stretch text-white text-[24px] font-bold leading-normal">
+                Integrate AI ecosystem for Thai better living
+              </div>
+              <div className="whitespace-pre-line self-stretch text-white text-[60px] font-bold leading-10">
+                THAI AI WATCH
+              </div>
+              <div className="whitespace-pre-line self-stretch grow shrink basis-0 text-white text-[20px] font-normal">
+                Unlock AI's possibilities with our website's insightful
+                articles. Explore transformative AI content and embrace
+                innovation.
+              </div>
+              <button className="p-2.5 bg-slate-800 rounded-lg justify-start items-start gap-3 inline-flex">
+                <div className="text-white text-[24px] font-bold leading-tight">
+                  LET’S EXPLORE
+                </div>
+                <svg
+                  className="icon-chevron-right-icon"
+                  width="31"
+                  height="30"
+                  viewBox="0 0 31 19"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M14.243 18.2469L0.497167 4.50105C-0.165781 3.83811 -0.165781 2.7633 0.497167 2.10042L2.10039 0.497194C2.76221 -0.164622 3.83482 -0.165895 4.4982 0.494366L15.4433 11.3882L26.3884 0.494366C27.0517 -0.165895 28.1243 -0.164622 28.7862 0.497194L30.3894 2.10042C31.0523 2.76337 31.0523 3.83818 30.3894 4.50105L16.6436 18.2468C15.9807 18.9098 14.9059 18.9098 14.243 18.2469Z"
+                    fill="white"
+                  />
+                </svg>
+              </button>
+              <div className="absolute top-80 right-20">
+                <Heroai />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
+      <div className="w-full h-[158px] bg-gradient-to-b from-white to-purple-600" />
+      <div className="relative w-full h-[600px] bg-gradient-to-b from-purple-600 via-indigo-800 to-slate-700 rounded-bl-[30px] rounded-br-[30px]">
+        <div className="w-9 h-[80px]">
+          <div className="w-[450px] h-[69px] left-10 absolute bg-purple-200 rounded-br-[30px] p-2.5">
+            <div className="w-full text-center text-black text-[36px] font-bold tracking-widest">
+              TRENDING TOPICS
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800 hover:dark:bg-opacity-30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore the Next.js 13 playground.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
+      <div className="w-full h-[700px] bg-white p-5">
+        <nav className="sticky top-0 bg-white dark:bg-slate-700 w-full z-20 left-0 border-b border-gray-200 dark:border-gray-600 rounded-lg">
+          <div className="max-w-screen-xl flex flex-wrap items-center justify-center mx-auto p-2">
+            <div className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1">
+              <ul className="flex flex-col p-4 md:p-0 mt-4 font-bold border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-slate-700 dark:border-slate-700">
+                <li>
+                  <a
+                    href="#"
+                    className="text-[20px] block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-purple-400"
+                    aria-current="page"
+                  >
+                    ALL
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    className="text-[20px] block py-2 pl-3 pr-4 text-slate-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-purple-400 dark:text-white dark:hover:bg-slate-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-slate-700"
+                  >
+                    Articles
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    className="text-[20px] block py-2 pl-3 pr-4 text-slate-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-purple-400 dark:text-white dark:hover:bg-slate-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-slate-700"
+                  >
+                    News
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    className="text-[20px] block py-2 pl-3 pr-4 text-slate-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-purple-400 dark:text-white dark:hover:bg-slate-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-slate-700"
+                  >
+                    Websites
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    className="text-[20px] block py-2 pl-3 pr-4 text-slate-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-purple-400 dark:text-white dark:hover:bg-slate-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                  >
+                    Publications
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
       </div>
-    </main>
-  )
+
+      <div className="w-full h-[500px] bg-gradient-to-l from-purple-600 via-indigo-800 to-slate-700">
+        <div className=" text-center text-white text-[48px] font-bold leading-10 py-10">
+          STATIC CONTENTS
+        </div>
+      </div>
+
+      <div className="w-full h-[500px] bg-black">
+        <div className="text-center text-purple-400 text-[48px] font-bold leading-10 py-10">
+          STATIC CONTENTS
+        </div>
+      </div>
+
+      <div className="w-full h-[200px] bg-slate-700 grid justify-items-stretch">
+        <div className="justify-self-end">
+          <div className=" text-neutral-50 text-[32px] font-bold leading-loose">
+            Contact
+          </div>
+          <div className="w-[385px] text-neutral-50 text-[20px] font-normal leading-loose">
+            112 อุทยานวิทยาศาสตร์ประเทศไทย <br /> อาคารเนคเทค ถ.พหลโยธิน <br />
+            ต.คลองหนึ่ง อ.คลองหลวงจ.ปทุมธานี 12120
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }
