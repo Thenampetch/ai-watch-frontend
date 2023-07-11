@@ -1,6 +1,7 @@
 import React from "react";
-import Image from "next/image";
 import Heroai from "../components/heroai";
+import Pdftn from "../components/pdftn";
+import Link from "next/font";
 
 export default function Home() {
   return (
@@ -20,7 +21,7 @@ export default function Home() {
                 articles. Explore transformative AI content and embrace
                 innovation.{" "}
               </div>
-              <a href="#section">
+              <a href="#general">
                 <button className="p-2.5 bg-slate-800 rounded-lg justify-start items-start gap-3 inline-flex">
                   <div className="text-white text-[24px] font-bold leading-tight">
                     LET’S EXPLORE
@@ -40,7 +41,7 @@ export default function Home() {
                   </svg>
                 </button>
               </a>
-              <div className="absolute top-80 right-20">
+              <div className="absolute top-60 right-20">
                 <Heroai />
               </div>
             </div>
@@ -98,7 +99,7 @@ export default function Home() {
               </p>
               <a
                 className="text-white bg-indigo-800 hover:bg-purple-600 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2 text-center inline-flex items-center"
-                href="#"
+                href="/pending"
               >
                 Read more
               </a>
@@ -111,22 +112,24 @@ export default function Home() {
                   Publication
                 </div>
               </div>
-
-              <div className="w-[235px] h-[130px] mb-3 rounded-lg bg-white border-black border-2" />
-
-              <a href="#">
-                <h5 className="text-gray-900 font-bold text-xl tracking-tight mb-2">
-                  Noteworthy technology acquisitions 2021
-                </h5>
-              </a>
-              <p className="font-normal text-gray-700 mb-2">plubication date</p>
-              <p className="font-normal text-gray-700 mb-2">1.2k views</p>
-              <a
-                className="text-white bg-indigo-800 hover:bg-purple-600 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2 text-center inline-flex items-center"
-                href="#"
-              >
-                Read more
-              </a>
+              <div className="w-[235px] h-[130px]">
+                <div className="w-[235px] h-[130px] mb-3 rounded-lg bg-white border-black border-2" />
+                <a href="#">
+                  <h5 className="text-gray-900 font-bold text-xl tracking-tight mb-2">
+                    Noteworthy technology acquisitions 2021
+                  </h5>
+                </a>
+                <p className="font-normal text-gray-700 mb-2">
+                  plubication date
+                </p>
+                <p className="font-normal text-gray-700 mb-2">1.2k views</p>
+                <a
+                  className="text-white bg-indigo-800 hover:bg-purple-600 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2 text-center inline-flex items-center"
+                  href="#"
+                >
+                  Read more
+                </a>
+              </div>
             </div>
           </div>
           <div className="w-[300px] h-[380px] bg-white shadow-md border border-gray-200 rounded-tl-lg rounded-tr-lg rounded-br-lg">
@@ -173,7 +176,7 @@ export default function Home() {
               <p className="font-normal text-gray-700 mb-2">1.2k views</p>
               <a
                 className="text-white bg-indigo-800 hover:bg-purple-600 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2 text-center inline-flex items-center"
-                href="#"
+                href="#pending"
               >
                 Read more
               </a>
@@ -182,14 +185,16 @@ export default function Home() {
         </div>
       </div>
 
-      <div id="section" className="relative w-full h-[750px] bg-white p-5">
+      <div className="relative w-full h-[750px] bg-white p-5">
+        {/* navbar */}
         <nav className="sticky top-0 bg-white dark:bg-slate-700 w-full z-20 left-0 border-b border-gray-200 dark:border-gray-600 rounded-lg">
           <div className="max-w-screen-xl flex flex-wrap items-center justify-center mx-auto p-2">
             <div className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1">
               <ul className="flex flex-col p-4 md:p-0 mt-4 font-bold border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-slate-700 dark:border-slate-700">
                 <li>
                   <a
-                    href="#"
+                    href="#general"
+                    id="general"
                     className="text-[20px] block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-purple-400"
                     aria-current="page"
                   >
@@ -198,7 +203,8 @@ export default function Home() {
                 </li>
                 <li>
                   <a
-                    href="#"
+                    href="#articles"
+                    id="articles"
                     className="text-[20px] block py-2 pl-3 pr-4 text-slate-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-purple-400 dark:text-white dark:hover:bg-slate-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-slate-700"
                   >
                     Articles
@@ -206,7 +212,8 @@ export default function Home() {
                 </li>
                 <li>
                   <a
-                    href="#"
+                    href="#news"
+                    id="news"
                     className="text-[20px] block py-2 pl-3 pr-4 text-slate-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-purple-400 dark:text-white dark:hover:bg-slate-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-slate-700"
                   >
                     News
@@ -214,7 +221,8 @@ export default function Home() {
                 </li>
                 <li>
                   <a
-                    href="#"
+                    href="#websites"
+                    id="websites"
                     className="text-[20px] block py-2 pl-3 pr-4 text-slate-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-purple-400 dark:text-white dark:hover:bg-slate-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-slate-700"
                   >
                     Websites
@@ -222,7 +230,8 @@ export default function Home() {
                 </li>
                 <li>
                   <a
-                    href="#"
+                    href="#publication"
+                    id="publications"
                     className="text-[20px] block py-2 pl-3 pr-4 text-slate-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-purple-400 dark:text-white dark:hover:bg-slate-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
                   >
                     Publications
@@ -233,7 +242,8 @@ export default function Home() {
           </div>
         </nav>
 
-        <div className="overflow-y-auto h-[670px] grid grid-cols-2 gap-4 py-3">
+        {/* News */}
+        <div className="overflow-y-auto h-[670px] grid sm:grid-cols-1 md:grid-cols-2 gap-4 py-3">
           <div className="relative flex w-full h-40 flex-row rounded-xl bg-white bg-clip-border text-gray-700 shadow-md">
             <div className="relative m-0 w-2/5 shrink-0 overflow-hidden rounded-xl rounded-r-none bg-white bg-clip-border text-gray-700">
               <img
@@ -292,11 +302,11 @@ export default function Home() {
               />
             </div>
             <div className="py-3 px-5">
-              <span className="w-[60px] mb-1 relative bg-amber-500 rounded-lg">
+              <div className="w-[60px] mb-1 relative bg-amber-500 rounded-lg">
                 <div className=" text-center text-white text-sm font-semibold leading-normal">
                   Article
                 </div>
-              </span>
+              </div>
               <h4 className="block font-sans text-base font-semibold leading-snug tracking-normal text-blue-gray-900 antialiased">
                 เจาะลึกทำความเข้าใจกับ ChatGPT และ AI
               </h4>
@@ -726,57 +736,96 @@ export default function Home() {
           </div>
         </div>
       </div>
+
       <hr className="mx-auto my-8 h-1 w-60 border-0 bg-gray-100" />
-      <div className="relative w-full h-[500px] bg-gradient-to-l from-purple-600 via-indigo-800 to-slate-700 rounded-tl-md rounded-tr-md">
-        <div className=" text-center text-white text-[48px] font-bold leading-10 py-10">
+
+      <div className="relative w-full h-fit bg-gradient-to-l from-purple-600 via-indigo-800 to-slate-700 rounded-tl-md rounded-tr-md">
+        <div className=" text-center text-white text-[48px] font-bold leading-10 py-8">
           AI THAILAND
         </div>
-        <div className="flex justify-center">
-          <a
-            href="#"
-            className="block max-w-xs p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
-          >
-            <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-              Thailand National AI Strategy and Action Plan (2022-2027)
-            </h5>
-            <p className="font-normal text-gray-700 dark:text-gray-400">
-              แผนปฏิบัติการด้านปัญญาประดิษฐ์แห่งชาติเพื่อการพัฒนาประเทศไทย (พ.ศ.
-              2565 – 2570)
-            </p>
-          </a>
+        <div className="flex justify-center py-8">
+          <div className="p-4 md:w-1/3 sm:w-1/2 w-full">
+            <a href="https://ai.in.th/about-ai-thailand/">
+              <div className="bg-white px-4 py-6 rounded-lg hover:bg-gray-100">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="50"
+                  height="50"
+                  className="fill-purple-500"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M5.625 1.5c-1.036 0-1.875.84-1.875 1.875v17.25c0 1.035.84 1.875 1.875 1.875h12.75c1.035 0 1.875-.84 1.875-1.875V12.75A3.75 3.75 0 0016.5 9h-1.875a1.875 1.875 0 01-1.875-1.875V5.25A3.75 3.75 0 009 1.5H5.625zM7.5 15a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5A.75.75 0 017.5 15zm.75 2.25a.75.75 0 000 1.5H12a.75.75 0 000-1.5H8.25z"
+                    clipRule="evenodd"
+                  ></path>
+                  <path d="M12.971 1.816A5.23 5.23 0 0114.25 5.25v1.875c0 .207.168.375.375.375H16.5a5.23 5.23 0 013.434 1.279 9.768 9.768 0 00-6.963-6.963z"></path>
+                </svg>
+                <h2 className="title-font font-bold text-2xl text-gray-900">
+                  National AI Strategy and Action Plan
+                </h2>
+                <p className="leading-relaxed">
+                  แผนปฏิบัติการด้านปัญญาประดิษฐ์แห่งชาติเพื่อการพัฒนาประเทศไทย
+                </p>
+              </div>
+            </a>
+          </div>
+          <div className="p-4 md:w-1/3 sm:w-1/2 w-full">
+            <a href="https://ai.in.th/resources/">
+              <div className="bg-white px-4 py-6 rounded-lg hover:bg-gray-100">
+                <svg
+                  width="50"
+                  height="50"
+                  viewBox="0 0 24 24"
+                  className="fill-purple-500"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path d="M3.375 3C2.33947 3 1.5 3.83947 1.5 4.875V5.625C1.5 6.66053 2.33947 7.5 3.375 7.5H20.625C21.6605 7.5 22.5 6.66053 22.5 5.625V4.875C22.5 3.83947 21.6605 3 20.625 3H3.375Z" />
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M3.08679 9L3.62657 18.1762C3.71984 19.7619 5.03296 21 6.62139 21H17.3783C18.9667 21 20.2799 19.7619 20.3731 18.1762L20.9129 9H3.08679ZM9.24976 12.75C9.24976 12.3358 9.58554 12 9.99976 12H13.9998C14.414 12 14.7498 12.3358 14.7498 12.75C14.7498 13.1642 14.414 13.5 13.9998 13.5H9.99976C9.58554 13.5 9.24976 13.1642 9.24976 12.75Z"
+                  />
+                </svg>
+                <h2 className="title-font font-bold text-2xl text-gray-900">
+                  Resources
+                </h2>
+                <p className="leading-relaxed">ทรัพยากร</p>
+              </div>
+            </a>
+          </div>
+          <div className="p-4 md:w-1/3 sm:w-1/2 w-full">
+            <a href="https://ai.in.th/programs/">
+              <div className="bg-white px-4 py-6 rounded-lg hover:bg-gray-100">
+                <svg
+                  width="50"
+                  height="50"
+                  viewBox="0 0 24 24"
+                  className="fill-purple-500"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M2.25 2.25C1.83579 2.25 1.5 2.58579 1.5 3C1.5 3.41421 1.83579 3.75 2.25 3.75H3V14.25C3 15.9069 4.34315 17.25 6 17.25H7.20943L6.03849 20.7628C5.9075 21.1558 6.11987 21.5805 6.51283 21.7115C6.90579 21.8425 7.33053 21.6301 7.46151 21.2372L7.79057 20.25H16.2094L16.5385 21.2372C16.6695 21.6301 17.0942 21.8425 17.4872 21.7115C17.8801 21.5805 18.0925 21.1558 17.9615 20.7628L16.7906 17.25H18C19.6569 17.25 21 15.9069 21 14.25V3.75H21.75C22.1642 3.75 22.5 3.41421 22.5 3C22.5 2.58579 22.1642 2.25 21.75 2.25H2.25ZM8.79057 17.25H15.2094L15.7094 18.75H8.29057L8.79057 17.25ZM16.8755 8.25467C17.2341 8.04727 17.3566 7.58847 17.1492 7.22992C16.9418 6.87138 16.483 6.74886 16.1245 6.95626C14.7577 7.74688 13.5517 8.78371 12.5667 10.0061L11.0303 8.46975C10.7374 8.17686 10.2626 8.17686 9.96967 8.46975L6.96967 11.4698C6.67678 11.7626 6.67678 12.2375 6.96967 12.5304C7.26256 12.8233 7.73744 12.8233 8.03033 12.5304L10.5 10.0607L12.1173 11.678C12.2742 11.835 12.4927 11.9143 12.7138 11.8947C12.9349 11.8751 13.136 11.7586 13.2629 11.5765C14.207 10.2217 15.4414 9.08428 16.8755 8.25467Z"
+                  />
+                </svg>
+                <h2 className="title-font font-bold text-2xl text-gray-900">
+                  Programes
+                </h2>
+                <p className="leading-relaxed">โครงการ</p>
+              </div>
+            </a>
+          </div>
         </div>
       </div>
 
-      {/* <hr className="mx-auto my-8 h-1 w-60 border-0 bg-gray-100" />
-      <div className="relative w-full h-[500px] bg-black rounded-tl-md rounded-tr-md">
-        <div className="text-center text-purple-400 text-[48px] font-bold leading-10 py-10">
-          STATIC CONTENTS
-        </div>
-      </div> */}
-
-      {/* <div className="w-full h-40 bg-slate-700 grid justify-items-stretch">
-        <div className="justify-self-end px-8 py-3">
-          <div className=" text-neutral-50 text-[30px] font-bold leading-tight">
-            Contact
-          </div>
-          <div className="w-fit text-neutral-50 text-[15px] font-normal leading-loose">
-            112 อุทยานวิทยาศาสตร์ประเทศไทย <br /> อาคารเนคเทค ถ.พหลโยธิน <br />
-            ต.คลองหนึ่ง อ.คลองหลวงจ.ปทุมธานี 12120
-          </div>
-        </div>
-      </div> */}
-
-      <footer className="bg-white dark:bg-gray-900">
+      <footer className="bg-gray-900">
         <div className="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
           <div className="md:flex md:justify-between">
             <div className="mb-6 md:mb-0">
-              <a href="" className="flex items-center">
-                <img
-                  src="https://flowbite.com/docs/images/logo.svg"
-                  className="h-8 mr-3"
-                  alt="FlowBite Logo"
-                />
-                <span className="self-center text-2xl font-bold whitespace-nowrap dark:text-white">
+              <a href="#" className="relative left-10">
+                <span className=" text-2xl font-bold whitespace-nowrap text-white">
                   AI Thai Watch
                 </span>
               </a>
@@ -794,10 +843,10 @@ export default function Home() {
 
             <div className="grid grid-cols-2 gap-6 sm:gap-6 sm:grid-cols-2">
               <div>
-                <h2 className="mb-4 text-sm font-bold text-gray-900 uppercase dark:text-white">
+                <h2 className="mb-4 text-sm font-bold  uppercase text-white">
                   AI Courses
                 </h2>
-                <ul className="text-gray-500 dark:text-gray-400 font-medium">
+                <ul className="text-gray-400 font-medium">
                   <li className="mb-2">
                     <a href="#" className="hover:underline">
                       AI Academy
@@ -830,10 +879,10 @@ export default function Home() {
                 </ul>
               </div>
               <div>
-                <h2 className="mb-4 text-sm font-bold text-gray-900 uppercase dark:text-white">
+                <h2 className="mb-4 text-sm font-bold uppercase text-white">
                   AI Services
                 </h2>
-                <ul className="text-gray-500 dark:text-gray-400 font-medium">
+                <ul className=" text-gray-400 font-medium">
                   <li className="mb-2">
                     <a
                       href="https://aiforthai.in.th/"
