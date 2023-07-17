@@ -1,12 +1,57 @@
-import React from "react";
+"use client";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import Heroai from "../components/heroai";
-import Pdftn from "../components/pdftn";
-import Link from "next/font";
+import { error } from "console";
 
 export default function Home() {
+  const [post, setPost] = useState([]);
+  const [filterPosts, setFilterPosts] = useState("");
+
+  const getData = async () => {
+    const { data } = await axios.get(`https://yesno.wtf/api`);
+    setPost(data);
+  };
+  useEffect(() => {
+    getData().catch((err) => {
+      console.log(err);
+    });
+    console.log(post);
+  }, []);
+
+  // const [posts, getPosts] = useState([]);
+  // const [filterPosts, getFilterPosts] = useState("");
+  // const [numPerPage, getNumPerPage] = useState(12);
+
+  // useEffect(() => {
+  //   axios
+  //     .get(
+  //       "https://newsapi.org/v2/top-headlines?country=us&apiKey=b2d9307e51ac43e68f24b6685bbf4afb"
+  //     )
+  //     .then((response) => {
+  //       getPosts(response.data.result);
+  //       console.log(response.data);
+  //     })
+  //     .catch((err) => console.log(err));
+  // }, [posts, filterPosts, numPerPage]);
+
+  // const handleScroll = () => {
+  //   if (
+  //     window.innerHeight + document.documentElement.scrollTop + 1 >=
+  //     document.documentElement.scrollHeight
+  //   ) {
+  //     getNumPerPage((prev) => prev + 4);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   window.addEventListener("scroll", handleScroll);
+  // }, []);
+
   return (
     <div className="w-full relative bg-white p-8">
-      <div className="w-full min-h-[75vh] bg-gradient-to-r from-slate-700 via-indigo-800 to-purple-600 rounded-tl-[48px] rounded-tr-[48px] rounded-bl-[48px] rounded-br-[300px] p-32">
+      {/* hero */}
+      <div className="Hero-Ai w-full min-h-[75vh] bg-gradient-to-r from-slate-700 via-indigo-800 to-purple-600 rounded-tl-[48px] rounded-tr-[48px] rounded-bl-[48px] rounded-br-[300px] p-32">
         <div className="w-full h-full flex-col justify-start items-start gap-[15px] inline-flex">
           <div className="w-full h-full flex-col justify-start items-start gap-[15px] inline-flex">
             <div className="self-stretch grow shrink basis-0 flex-col justify-start items-start gap-[15px] flex">
@@ -16,7 +61,7 @@ export default function Home() {
               <div className="whitespace-pre-line self-stretch text-white text-[60px] font-bold leading-10">
                 THAI AI WATCH
               </div>
-              <div className="w-3/4 whitespace-normal self-stretch grow shrink basis-0 text-white text-[20px] font-normal">
+              <div className="w-3/4 whitespace-normal self-stretch grow shrink basis-0 text-white text-[20px] --font-open-sans">
                 Unlock AI's possibilities with our website's insightful
                 articles. Explore transformative AI content and embrace
                 innovation.{" "}
@@ -49,6 +94,7 @@ export default function Home() {
         </div>
       </div>
 
+      {/* trending */}
       <div className="w-full h-[158px] bg-gradient-to-b from-white to-purple-600" />
       <div className="relative w-full h-[550px] bg-gradient-to-b from-purple-600 via-indigo-800 to-slate-700 rounded-bl-[30px] rounded-br-[30px]">
         <div className="w-9 h-[80px] flex-initial">
@@ -112,8 +158,13 @@ export default function Home() {
                   Publication
                 </div>
               </div>
-              <div className="w-[235px] h-[130px]">
-                <div className="w-[235px] h-[130px] mb-3 rounded-lg bg-white border-black border-2" />
+              <div className="w-[235px] h-[130px] mb-3 rounded-lg bg-white border-black">
+                <img
+                  src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1471&amp;q=80"
+                  alt="image"
+                  className="h-full w-full object-cover rounded-lg"
+                />
+
                 <a href="#">
                   <h5 className="text-gray-900 font-bold text-xl tracking-tight mb-2">
                     Noteworthy technology acquisitions 2021
@@ -187,62 +238,118 @@ export default function Home() {
 
       <div className="relative w-full h-[750px] bg-white p-5">
         {/* navbar */}
-        <nav className="sticky top-0 bg-white dark:bg-slate-700 w-full z-20 left-0 border-b border-gray-200 dark:border-gray-600 rounded-lg">
-          <div className="max-w-screen-xl flex flex-wrap items-center justify-center mx-auto p-2">
-            <div className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1">
-              <ul className="flex flex-col p-4 md:p-0 mt-4 font-bold border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-slate-700 dark:border-slate-700">
-                <li>
-                  <a
-                    href="#general"
-                    id="general"
-                    className="text-[20px] block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-purple-400"
-                    aria-current="page"
-                  >
-                    ALL
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#articles"
-                    id="articles"
-                    className="text-[20px] block py-2 pl-3 pr-4 text-slate-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-purple-400 dark:text-white dark:hover:bg-slate-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-slate-700"
-                  >
-                    Articles
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#news"
-                    id="news"
-                    className="text-[20px] block py-2 pl-3 pr-4 text-slate-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-purple-400 dark:text-white dark:hover:bg-slate-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-slate-700"
-                  >
-                    News
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#websites"
-                    id="websites"
-                    className="text-[20px] block py-2 pl-3 pr-4 text-slate-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-purple-400 dark:text-white dark:hover:bg-slate-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-slate-700"
-                  >
-                    Websites
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#publication"
-                    id="publications"
-                    className="text-[20px] block py-2 pl-3 pr-4 text-slate-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-purple-400 dark:text-white dark:hover:bg-slate-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
-                  >
-                    Publications
-                  </a>
-                </li>
-              </ul>
+        <span>
+          <nav className="sticky top-0 bg-white dark:bg-slate-700 w-full z-20 left-0 border-b  rounded-lg">
+            <div className="max-w-screen-xl flex flex-wrap items-center justify-center mx-auto p-2">
+              <div className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1">
+                <ul className="flex flex-col p-4 md:p-0 mt-4 font-bold border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-slate-700 dark:border-slate-700">
+                  <li>
+                    <a
+                      href="#general"
+                      id="general"
+                      className="text-lg block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-purple-400"
+                      aria-current="page"
+                    >
+                      ALL
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="#articles"
+                      id="articles"
+                      className="text-lg block py-2 pl-3 pr-4 text-slate-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-purple-400 dark:text-white dark:hover:bg-slate-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-slate-700"
+                    >
+                      Articles
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="#news"
+                      id="news"
+                      className="text-lg block py-2 pl-3 pr-4 text-slate-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-purple-400 dark:text-white dark:hover:bg-slate-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-slate-700"
+                    >
+                      News
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="#websites"
+                      id="websites"
+                      className="text-lg block py-2 pl-3 pr-4 text-slate-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-purple-400 dark:text-white dark:hover:bg-slate-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-slate-700"
+                    >
+                      Websites
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="#publication"
+                      id="publications"
+                      className="text-lg block py-2 pl-3 pr-4 text-slate-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-purple-400 dark:text-white dark:hover:bg-slate-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                    >
+                      Publications
+                    </a>
+                  </li>
+
+                  <div className="max-w-md mx-auto">
+                    <div className="relative flex items-center w-full h-8 rounded-lg focus-within:shadow-lg bg-white overflow-hidden">
+                      <div className="grid place-items-center h-full w-12 text-gray-300">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="h-6 w-6"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                          />
+                        </svg>
+                      </div>
+
+                      <input
+                        className="peer h-full w-full outline-none text-sm text-gray-700 pr-2"
+                        type="text"
+                        id="search"
+                        placeholder="Search something.."
+                      />
+                    </div>
+                  </div>
+                </ul>
+              </div>
             </div>
-          </div>
-        </nav>
+          </nav>
+        </span>
 
         {/* News */}
+        {/* <div className="container">
+          {posts.articles.map((response) => {
+            return (
+              <div className="posts-card">
+                <a href={response.url} className="ainews-url">
+                  <img
+                    src={
+                      response.urlToImage ||
+                      "https://t4.ftcdn.net/jpg/04/73/25/49/360_F_473254957_bxG9yf4ly7OBO5I0O5KABlN930GwaMQz.jpg"
+                    }
+                    alt="image"
+                    className="posts-image"
+                  />
+                </a>
+                <a href={response.url} className="ainews-url">
+                  <p className="ainews-title">{response.title}</p>
+                </a>
+                <small className="ainews-date">
+                  {response.publishedAt.substring(0, 10)}
+                </small>
+              </div>
+            );
+          })}
+        </div> */}
+
+        {/*posts*/}
         <div className="overflow-y-auto h-[670px] grid sm:grid-cols-1 md:grid-cols-2 gap-4 py-3">
           <div className="relative flex w-full h-40 flex-row rounded-xl bg-white bg-clip-border text-gray-700 shadow-md">
             <div className="relative m-0 w-2/5 shrink-0 overflow-hidden rounded-xl rounded-r-none bg-white bg-clip-border text-gray-700">
@@ -342,6 +449,7 @@ export default function Home() {
               </a>
             </div>
           </div>
+
           <div className="relative flex w-full h-40 flex-row rounded-xl bg-white bg-clip-border text-gray-800 shadow-md">
             <div className="relative m-0 w-2/5 shrink-0 overflow-hidden rounded-xl rounded-r-none bg-white bg-clip-border text-gray-700">
               <img
@@ -739,6 +847,7 @@ export default function Home() {
 
       <hr className="mx-auto my-8 h-1 w-60 border-0 bg-gray-100" />
 
+      {/*static contents*/}
       <div className="relative w-full h-fit bg-gradient-to-l from-purple-600 via-indigo-800 to-slate-700 rounded-tl-md rounded-tr-md">
         <div className=" text-center text-white text-[48px] font-bold leading-10 py-8">
           AI THAILAND
@@ -820,6 +929,7 @@ export default function Home() {
         </div>
       </div>
 
+      {/* footer */}
       <footer className="bg-gray-900">
         <div className="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
           <div className="md:flex md:justify-between">

@@ -31,13 +31,12 @@ export default function Pending() {
                   News
                 </span>
               </div>
-              <h1 className="text-3xl font-semibold px-5">
-                หุ่นยนต์ร่วมงานประชุม UN หวังบรรลุเป้าหมาย SDGs
-              </h1>
-              <p className="flex-1 pt-2 px-5">publication date</p>
+              <h1 className="text-3xl font-semibold px-5">TITLE</h1>
+              <h4 className="text-xl font-normal px-5">description</h4>
+              <p className="flex-1 pt-5 px-5">publication date</p>
               <p className="flex-1 pt-2 px-5 pb-5">views</p>
-              <div className="flex justify-start p-5">
-                <span className="px-2 py-1 text-base rounded-lg hover:bg-purple-200 text-white hover:text-gray-900 font-semibold">
+              <div className="flex justify-start px-5 py-5">
+                <span className="px-2  text-base rounded-lg hover:bg-purple-200 text-white hover:text-gray-900 font-semibold">
                   Read more
                 </span>
               </div>
