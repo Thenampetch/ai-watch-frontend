@@ -2,51 +2,38 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Heroai from "../components/heroai";
-import { error } from "console";
 
 export default function Home() {
-  const [post, setPost] = useState([]);
-  const [filterPosts, setFilterPosts] = useState("");
+  const [post, setPost] = useState<any[]>([]);
+  const [searchTitle, setSearchTitle] = useState<any>("");
+  const [filterWebsite, setFilterWebsite] = useState("");
+  const [numPerPage, setNumPerPage] = useState(120);
 
-  const getData = async () => {
-    const { data } = await axios.get(`https://yesno.wtf/api`);
-    setPost(data);
-  };
   useEffect(() => {
-    getData().catch((err) => {
-      console.log(err);
-    });
-    console.log(post);
+    axios
+      .get(
+        `http://localhost:3001/ai-news?numperpage=${numPerPage}&website=${filterWebsite}&title=${searchTitle}`
+      )
+      .then((response) => setPost(response.data))
+      .catch((err) => console.log(err));
+  }, [numPerPage, searchTitle, filterWebsite]);
+
+  const handleSearchChange = (search: any) => {
+    setSearchTitle(search.target.value);
+  };
+
+  const handleScroll = () => {
+    if (
+      window.innerHeight + document.documentElement.scrollTop + 1 >=
+      document.documentElement.scrollHeight
+    ) {
+      setNumPerPage((prev) => prev + 3);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
   }, []);
-
-  // const [posts, getPosts] = useState([]);
-  // const [filterPosts, getFilterPosts] = useState("");
-  // const [numPerPage, getNumPerPage] = useState(12);
-
-  // useEffect(() => {
-  //   axios
-  //     .get(
-  //       "https://newsapi.org/v2/top-headlines?country=us&apiKey=b2d9307e51ac43e68f24b6685bbf4afb"
-  //     )
-  //     .then((response) => {
-  //       getPosts(response.data.result);
-  //       console.log(response.data);
-  //     })
-  //     .catch((err) => console.log(err));
-  // }, [posts, filterPosts, numPerPage]);
-
-  // const handleScroll = () => {
-  //   if (
-  //     window.innerHeight + document.documentElement.scrollTop + 1 >=
-  //     document.documentElement.scrollHeight
-  //   ) {
-  //     getNumPerPage((prev) => prev + 4);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   window.addEventListener("scroll", handleScroll);
-  // }, []);
 
   return (
     <div className="w-full relative bg-white p-8">
@@ -86,7 +73,7 @@ export default function Home() {
                   </svg>
                 </button>
               </a>
-              <div className="absolute top-60 right-20">
+              <div className="absolute left-2/3 top-60">
                 <Heroai />
               </div>
             </div>
@@ -105,6 +92,7 @@ export default function Home() {
           </div>
         </div>
 
+        {/*trending card*/}
         <div className="flex flex-row overflow-x-scroll px-8 py-4 space-x-5">
           <div className="w-[300px] h-[380px] bg-white shadow-md border border-gray-200 rounded-tl-lg rounded-tr-lg rounded-br-lg">
             <div className="px-5 py-2">
@@ -132,10 +120,10 @@ export default function Home() {
                 <svg
                   className="w-4 h-4 mr-1 inline-flex"
                   stroke="currentColor"
-                  stroke-width="2"
+                  strokeWidth="2"
                   fill="none"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                   viewBox="0 0 24 24"
                 >
                   <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
@@ -185,31 +173,6 @@ export default function Home() {
           </div>
           <div className="w-[300px] h-[380px] bg-white shadow-md border border-gray-200 rounded-tl-lg rounded-tr-lg rounded-br-lg">
             <div className="px-5 py-2">
-              <div className="w-[120px] h-[25px] mb-3 relative bg-green-600 rounded-lg">
-                <div className=" text-center text-white text-base font-semibold leading-normal">
-                  Website
-                </div>
-              </div>
-
-              <div className="w-[235px] h-[130px] mb-3 rounded-lg bg-white border-black border-2" />
-
-              <a href="#">
-                <h5 className="text-gray-900 font-bold text-xl tracking-tight mb-2">
-                  Noteworthy technology acquisitions 2021
-                </h5>
-              </a>
-              <p className="font-normal text-gray-700 mb-2">plubication date</p>
-              <p className="font-normal text-gray-700 mb-2">1.2k views</p>
-              <a
-                className="text-white bg-indigo-800 hover:bg-purple-600 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2 text-center inline-flex items-center"
-                href="#"
-              >
-                Read more
-              </a>
-            </div>
-          </div>
-          <div className="w-[300px] h-[380px] bg-white shadow-md border border-gray-200 rounded-tl-lg rounded-tr-lg rounded-br-lg">
-            <div className="px-5 py-2">
               <div className="w-[100px] h-[25px] mb-3 relative bg-amber-500 rounded-lg">
                 <div className=" text-center text-white text-base font-semibold leading-normal">
                   Article
@@ -233,10 +196,61 @@ export default function Home() {
               </a>
             </div>
           </div>
+          {post.map((response) => {
+            return (
+              <div className="w-[300px] min-h-max bg-white shadow-md border border-gray-200 rounded-tl-lg rounded-tr-lg rounded-br-lg">
+                <div className="px-5 py-2">
+                  <div className="w-[120px] h-[25px] mb-3 relative bg-green-600 rounded-lg">
+                    <div className=" text-center text-white text-sm font-semibold leading-normal">
+                      Website
+                    </div>
+                  </div>
+
+                  <div className="w-[235px] h-[130px] mb-3 rounded-lg bg-white border-black">
+                    <img
+                      src={response.imageHeader}
+                      alt="image"
+                      className="h-full w-full object-cover rounded-lg"
+                    />
+                  </div>
+
+                  <a href={response.url}>
+                    <h5 className="text-gray-900 font-bold text-lg tracking-tight mb-2">
+                      {response.title}
+                    </h5>
+                  </a>
+                  <p className="font-normal text-gray-700 mb-2">
+                    Published {response.publishedDate.substring(0, 10)}
+                  </p>
+                  <p className="font-normal text-gray-700 mb-2 ">
+                    <svg
+                      className="w-4 h-4 mr-1 inline-flex"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      fill="none"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      viewBox="0 0 24 24"
+                    >
+                      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                      <circle cx="12" cy="12" r="3"></circle>
+                    </svg>
+                    {response.stat.view.count} views
+                  </p>
+                  <a
+                    className="text-white bg-indigo-800 hover:bg-purple-600 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2 text-center inline-flex items-center"
+                    href={response.url}
+                  >
+                    Read more
+                  </a>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
 
-      <div className="relative w-full h-[750px] bg-white p-5">
+      <div id="postsection" className="relative w-full h-[750px] bg-white p-5">
         {/* navbar */}
         <span>
           <nav className="sticky top-0 bg-white dark:bg-slate-700 w-full z-20 left-0 border-b  rounded-lg">
@@ -301,9 +315,9 @@ export default function Home() {
                           stroke="currentColor"
                         >
                           <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
                             d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
                           />
                         </svg>
@@ -314,6 +328,7 @@ export default function Home() {
                         type="text"
                         id="search"
                         placeholder="Search something.."
+                        onChange={handleSearchChange}
                       />
                     </div>
                   </div>
@@ -323,525 +338,62 @@ export default function Home() {
           </nav>
         </span>
 
-        {/* News */}
-        {/* <div className="container">
-          {posts.articles.map((response) => {
+        {/*posts*/}
+        <div className="overflow-y-auto h-[670px] grid sm:grid-cols-1 md:grid-cols-2 gap-4 py-3">
+          {post.map((response) => {
             return (
-              <div className="posts-card">
-                <a href={response.url} className="ainews-url">
-                  <img
-                    src={
-                      response.urlToImage ||
-                      "https://t4.ftcdn.net/jpg/04/73/25/49/360_F_473254957_bxG9yf4ly7OBO5I0O5KABlN930GwaMQz.jpg"
-                    }
-                    alt="image"
-                    className="posts-image"
-                  />
-                </a>
-                <a href={response.url} className="ainews-url">
-                  <p className="ainews-title">{response.title}</p>
-                </a>
-                <small className="ainews-date">
-                  {response.publishedAt.substring(0, 10)}
-                </small>
+              <div className="post-card">
+                <div className="relative flex w-full h-fit flex-row rounded-xl bg-white bg-clip-border text-gray-700 shadow-md">
+                  <div className="relative m-0 w-2/5 shrink-0 overflow-hidden rounded-xl rounded-r-none bg-white bg-clip-border text-gray-700">
+                    <img
+                      src={response.imageHeader}
+                      alt="image"
+                      className="h-full w-full object-cover"
+                    />
+                  </div>
+                  <div className="py-3 px-5">
+                    <div className="w-[75px] mb-1 relative bg-green-600 rounded-lg">
+                      <div className=" text-center text-white text-sm font-semibold leading-normal">
+                        Website
+                      </div>
+                    </div>
+                    <h4 className="block font-sans text-sm font-semibold leading-snug tracking-normal text-blue-gray-900 antialiased">
+                      {response.title}
+                    </h4>
+                    <p className="block font-sans text-xs font-normal leading-relaxed text-gray-700 antialiased">
+                      Published {response.publishedDate.substring(0, 10)}
+                    </p>
+                    <p className=" block font-sans text-xs font-normal leading-relaxed text-gray-700 antialiased">
+                      {response.stat.view.count} views
+                    </p>
+                    <a className="inline-block" href={response.url}>
+                      <button
+                        className="flex select-none items-center gap-2 rounded-lg py-2 px-1 text-center align-middle font-sans text-xs font-bold uppercase text-purple-800 transition-all hover:bg-purple-400/10 active:bg-pink-500/30 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                        type="button"
+                      >
+                        Read more
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          strokeWidth="2"
+                          stroke="currentColor"
+                          aria-hidden="true"
+                          className="h-4 w-4"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"
+                          ></path>
+                        </svg>
+                      </button>
+                    </a>
+                  </div>
+                </div>
               </div>
             );
           })}
-        </div> */}
-
-        {/*posts*/}
-        <div className="overflow-y-auto h-[670px] grid sm:grid-cols-1 md:grid-cols-2 gap-4 py-3">
-          <div className="relative flex w-full h-40 flex-row rounded-xl bg-white bg-clip-border text-gray-700 shadow-md">
-            <div className="relative m-0 w-2/5 shrink-0 overflow-hidden rounded-xl rounded-r-none bg-white bg-clip-border text-gray-700">
-              <img
-                src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1471&amp;q=80"
-                alt="image"
-                className="h-full w-full object-cover"
-              />
-            </div>
-            <div className="py-3 px-5">
-              <div className="w-[75px] mb-1 relative bg-green-600 rounded-lg">
-                <div className=" text-center text-white text-sm font-semibold leading-normal">
-                  Website
-                </div>
-              </div>
-              <h4 className="block font-sans text-base font-semibold leading-snug tracking-normal text-blue-gray-900 antialiased">
-                เจาะลึกทำความเข้าใจกับ ChatGPT และ AI
-              </h4>
-              <p className="block font-sans text-xs font-normal leading-relaxed text-gray-700 antialiased">
-                publication date
-              </p>
-              <p className=" block font-sans text-xs font-normal leading-relaxed text-gray-700 antialiased">
-                820 views
-              </p>
-
-              <a className="inline-block" href="#">
-                <button
-                  className="flex select-none items-center gap-2 rounded-lg py-2 px-1 text-center align-middle font-sans text-xs font-bold uppercase text-purple-800 transition-all hover:bg-purple-400/10 active:bg-pink-500/30 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-                  type="button"
-                >
-                  Read more
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke-width="2"
-                    stroke="currentColor"
-                    aria-hidden="true"
-                    className="h-4 w-4"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"
-                    ></path>
-                  </svg>
-                </button>
-              </a>
-            </div>
-          </div>
-          <div className="relative flex w-full h-40 flex-row rounded-xl bg-white bg-clip-border text-gray-800 shadow-md">
-            <div className="relative m-0 w-2/5 shrink-0 overflow-hidden rounded-xl rounded-r-none bg-white bg-clip-border text-gray-700">
-              <img
-                src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1471&amp;q=80"
-                alt="image"
-                className="h-full w-full object-cover"
-              />
-            </div>
-            <div className="py-3 px-5">
-              <div className="w-[60px] mb-1 relative bg-amber-500 rounded-lg">
-                <div className=" text-center text-white text-sm font-semibold leading-normal">
-                  Article
-                </div>
-              </div>
-              <h4 className="block font-sans text-base font-semibold leading-snug tracking-normal text-blue-gray-900 antialiased">
-                เจาะลึกทำความเข้าใจกับ ChatGPT และ AI
-              </h4>
-              <p className="block font-sans text-xs font-normal leading-relaxed text-gray-700 antialiased">
-                publication date
-              </p>
-              <p className=" block font-sans text-xs font-normal leading-relaxed text-gray-700 antialiased">
-                820 views
-              </p>
-
-              <a className="inline-block" href="#">
-                <button
-                  className="flex select-none items-center gap-2 rounded-lg py-2 px-1 text-center align-middle font-sans text-xs font-bold uppercase text-purple-800 transition-all hover:bg-purple-400/10 active:bg-pink-500/30 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-                  type="button"
-                >
-                  Read more
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke-width="2"
-                    stroke="currentColor"
-                    aria-hidden="true"
-                    className="h-4 w-4"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"
-                    ></path>
-                  </svg>
-                </button>
-              </a>
-            </div>
-          </div>
-
-          <div className="relative flex w-full h-40 flex-row rounded-xl bg-white bg-clip-border text-gray-800 shadow-md">
-            <div className="relative m-0 w-2/5 shrink-0 overflow-hidden rounded-xl rounded-r-none bg-white bg-clip-border text-gray-700">
-              <img
-                src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1471&amp;q=80"
-                alt="image"
-                className="h-full w-full object-cover"
-              />
-            </div>
-            <div className="py-3 px-5">
-              <div className="w-[60px] mb-1 relative bg-blue-500 rounded-lg">
-                <div className=" text-center text-white text-sm font-semibold leading-normal">
-                  News
-                </div>
-              </div>
-              <h4 className="block font-sans text-base font-semibold leading-snug tracking-normal text-blue-gray-900 antialiased">
-                เจาะลึกทำความเข้าใจกับ ChatGPT และ AI
-              </h4>
-              <p className="block font-sans text-xs font-normal leading-relaxed text-gray-700 antialiased">
-                publication date
-              </p>
-              <p className=" block font-sans text-xs font-normal leading-relaxed text-gray-700 antialiased">
-                820 views
-              </p>
-
-              <a className="inline-block" href="#">
-                <button
-                  className="flex select-none items-center gap-2 rounded-lg py-2 px-1 text-center align-middle font-sans text-xs font-bold uppercase text-purple-800 transition-all hover:bg-purple-400/10 active:bg-pink-500/30 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-                  type="button"
-                >
-                  Read more
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke-width="2"
-                    stroke="currentColor"
-                    aria-hidden="true"
-                    className="h-4 w-4"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"
-                    ></path>
-                  </svg>
-                </button>
-              </a>
-            </div>
-          </div>
-          <div className="relative flex w-full h-40 flex-row rounded-xl bg-white bg-clip-border text-gray-800 shadow-md">
-            <div className="relative m-0 w-2/5 shrink-0 overflow-hidden rounded-xl rounded-r-none bg-white bg-clip-border text-gray-700">
-              <img
-                src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1471&amp;q=80"
-                alt="image"
-                className="h-full w-full object-cover"
-              />
-            </div>
-            <div className="py-3 px-5">
-              <div className="w-[85px] mb-1 relative bg-red-500 rounded-lg">
-                <div className=" text-center text-white text-sm font-semibold leading-normal">
-                  Publication
-                </div>
-              </div>
-              <h4 className="block font-sans text-base font-semibold leading-snug tracking-normal text-blue-gray-900 antialiased">
-                เจาะลึกทำความเข้าใจกับ ChatGPT และ AI
-              </h4>
-              <p className="block font-sans text-xs font-normal leading-relaxed text-gray-700 antialiased">
-                publication date
-              </p>
-              <p className=" block font-sans text-xs font-normal leading-relaxed text-gray-700 antialiased">
-                820 views
-              </p>
-
-              <a className="inline-block" href="#">
-                <button
-                  className="flex select-none items-center gap-2 rounded-lg py-2 px-1 text-center align-middle font-sans text-xs font-bold uppercase text-purple-800 transition-all hover:bg-purple-400/10 active:bg-pink-500/30 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-                  type="button"
-                >
-                  Read more
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke-width="2"
-                    stroke="currentColor"
-                    aria-hidden="true"
-                    className="h-4 w-4"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"
-                    ></path>
-                  </svg>
-                </button>
-              </a>
-            </div>
-          </div>
-          <div className="relative flex w-full h-40 flex-row rounded-xl bg-white bg-clip-border text-gray-800 shadow-md">
-            <div className="relative m-0 w-2/5 shrink-0 overflow-hidden rounded-xl rounded-r-none bg-white bg-clip-border text-gray-700">
-              <img
-                src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1471&amp;q=80"
-                alt="image"
-                className="h-full w-full object-cover"
-              />
-            </div>
-            <div className="py-3 px-5">
-              <div className="w-[60px] mb-1 relative bg-amber-500 rounded-lg">
-                <div className=" text-center text-white text-sm font-semibold leading-normal">
-                  Website
-                </div>
-              </div>
-              <h4 className="block font-sans text-base font-semibold leading-snug tracking-normal text-blue-gray-900 antialiased">
-                เจาะลึกทำความเข้าใจกับ ChatGPT และ AI
-              </h4>
-              <p className="block font-sans text-xs font-normal leading-relaxed text-gray-700 antialiased">
-                publication date
-              </p>
-              <p className=" block font-sans text-xs font-normal leading-relaxed text-gray-700 antialiased">
-                820 views
-              </p>
-
-              <a className="inline-block" href="#">
-                <button
-                  className="flex select-none items-center gap-2 rounded-lg py-2 px-1 text-center align-middle font-sans text-xs font-bold uppercase text-purple-800 transition-all hover:bg-purple-400/10 active:bg-pink-500/30 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-                  type="button"
-                >
-                  Read more
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke-width="2"
-                    stroke="currentColor"
-                    aria-hidden="true"
-                    className="h-4 w-4"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"
-                    ></path>
-                  </svg>
-                </button>
-              </a>
-            </div>
-          </div>
-          <div className="relative flex w-full h-40 flex-row rounded-xl bg-white bg-clip-border text-gray-800 shadow-md">
-            <div className="relative m-0 w-2/5 shrink-0 overflow-hidden rounded-xl rounded-r-none bg-white bg-clip-border text-gray-700">
-              <img
-                src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1471&amp;q=80"
-                alt="image"
-                className="h-full w-full object-cover"
-              />
-            </div>
-            <div className="py-3 px-5">
-              <div className="w-[60px] mb-1 relative bg-amber-500 rounded-lg">
-                <div className=" text-center text-white text-sm font-semibold leading-normal">
-                  Website
-                </div>
-              </div>
-              <h4 className="block font-sans text-base font-semibold leading-snug tracking-normal text-blue-gray-900 antialiased">
-                เจาะลึกทำความเข้าใจกับ ChatGPT และ AI
-              </h4>
-              <p className="block font-sans text-xs font-normal leading-relaxed text-gray-700 antialiased">
-                publication date
-              </p>
-              <p className=" block font-sans text-xs font-normal leading-relaxed text-gray-700 antialiased">
-                820 views
-              </p>
-
-              <a className="inline-block" href="#">
-                <button
-                  className="flex select-none items-center gap-2 rounded-lg py-2 px-1 text-center align-middle font-sans text-xs font-bold uppercase text-purple-800 transition-all hover:bg-purple-400/10 active:bg-pink-500/30 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-                  type="button"
-                >
-                  Read more
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke-width="2"
-                    stroke="currentColor"
-                    aria-hidden="true"
-                    className="h-4 w-4"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"
-                    ></path>
-                  </svg>
-                </button>
-              </a>
-            </div>
-          </div>
-          <div className="relative flex w-full h-40 flex-row rounded-xl bg-white bg-clip-border text-gray-800 shadow-md">
-            <div className="relative m-0 w-2/5 shrink-0 overflow-hidden rounded-xl rounded-r-none bg-white bg-clip-border text-gray-700">
-              <img
-                src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1471&amp;q=80"
-                alt="image"
-                className="h-full w-full object-cover"
-              />
-            </div>
-            <div className="py-3 px-5">
-              <div className="w-[60px] mb-1 relative bg-amber-500 rounded-lg">
-                <div className=" text-center text-white text-sm font-semibold leading-normal">
-                  Website
-                </div>
-              </div>
-              <h4 className="block font-sans text-base font-semibold leading-snug tracking-normal text-blue-gray-900 antialiased">
-                เจาะลึกทำความเข้าใจกับ ChatGPT และ AI
-              </h4>
-              <p className="block font-sans text-xs font-normal leading-relaxed text-gray-700 antialiased">
-                publication date
-              </p>
-              <p className=" block font-sans text-xs font-normal leading-relaxed text-gray-700 antialiased">
-                820 views
-              </p>
-
-              <a className="inline-block" href="#">
-                <button
-                  className="flex select-none items-center gap-2 rounded-lg py-2 px-1 text-center align-middle font-sans text-xs font-bold uppercase text-purple-800 transition-all hover:bg-purple-400/10 active:bg-pink-500/30 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-                  type="button"
-                >
-                  Read more
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke-width="2"
-                    stroke="currentColor"
-                    aria-hidden="true"
-                    className="h-4 w-4"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"
-                    ></path>
-                  </svg>
-                </button>
-              </a>
-            </div>
-          </div>
-          <div className="relative flex w-full h-40 flex-row rounded-xl bg-white bg-clip-border text-gray-800 shadow-md">
-            <div className="relative m-0 w-2/5 shrink-0 overflow-hidden rounded-xl rounded-r-none bg-white bg-clip-border text-gray-700">
-              <img
-                src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1471&amp;q=80"
-                alt="image"
-                className="h-full w-full object-cover"
-              />
-            </div>
-            <div className="py-3 px-5">
-              <div className="w-[60px] mb-1 relative bg-amber-500 rounded-lg">
-                <div className=" text-center text-white text-sm font-semibold leading-normal">
-                  Website
-                </div>
-              </div>
-              <h4 className="block font-sans text-base font-semibold leading-snug tracking-normal text-blue-gray-900 antialiased">
-                เจาะลึกทำความเข้าใจกับ ChatGPT และ AI
-              </h4>
-              <p className="block font-sans text-xs font-normal leading-relaxed text-gray-700 antialiased">
-                publication date
-              </p>
-              <p className=" block font-sans text-xs font-normal leading-relaxed text-gray-700 antialiased">
-                820 views
-              </p>
-
-              <a className="inline-block" href="#">
-                <button
-                  className="flex select-none items-center gap-2 rounded-lg py-2 px-1 text-center align-middle font-sans text-xs font-bold uppercase text-purple-800 transition-all hover:bg-purple-400/10 active:bg-pink-500/30 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-                  type="button"
-                >
-                  Read more
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke-width="2"
-                    stroke="currentColor"
-                    aria-hidden="true"
-                    className="h-4 w-4"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"
-                    ></path>
-                  </svg>
-                </button>
-              </a>
-            </div>
-          </div>
-          <div className="relative flex w-full h-40 flex-row rounded-xl bg-white bg-clip-border text-gray-800 shadow-md">
-            <div className="relative m-0 w-2/5 shrink-0 overflow-hidden rounded-xl rounded-r-none bg-white bg-clip-border text-gray-700">
-              <img
-                src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1471&amp;q=80"
-                alt="image"
-                className="h-full w-full object-cover"
-              />
-            </div>
-            <div className="py-3 px-5">
-              <div className="w-[60px] mb-1 relative bg-amber-500 rounded-lg">
-                <div className=" text-center text-white text-sm font-semibold leading-normal">
-                  Website
-                </div>
-              </div>
-              <h4 className="block font-sans text-base font-semibold leading-snug tracking-normal text-blue-gray-900 antialiased">
-                เจาะลึกทำความเข้าใจกับ ChatGPT และ AI
-              </h4>
-              <p className="block font-sans text-xs font-normal leading-relaxed text-gray-700 antialiased">
-                publication date
-              </p>
-              <p className=" block font-sans text-xs font-normal leading-relaxed text-gray-700 antialiased">
-                820 views
-              </p>
-
-              <a className="inline-block" href="#">
-                <button
-                  className="flex select-none items-center gap-2 rounded-lg py-2 px-1 text-center align-middle font-sans text-xs font-bold uppercase text-purple-800 transition-all hover:bg-purple-400/10 active:bg-pink-500/30 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-                  type="button"
-                >
-                  Read more
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke-width="2"
-                    stroke="currentColor"
-                    aria-hidden="true"
-                    className="h-4 w-4"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"
-                    ></path>
-                  </svg>
-                </button>
-              </a>
-            </div>
-          </div>
-          <div className="relative flex w-full h-40 flex-row rounded-xl bg-white bg-clip-border text-gray-800 shadow-md">
-            <div className="relative m-0 w-2/5 shrink-0 overflow-hidden rounded-xl rounded-r-none bg-white bg-clip-border text-gray-700">
-              <img
-                src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1471&amp;q=80"
-                alt="image"
-                className="h-full w-full object-cover"
-              />
-            </div>
-            <div className="py-3 px-5">
-              <div className="w-[60px] mb-1 relative bg-amber-500 rounded-lg">
-                <div className=" text-center text-white text-sm font-semibold leading-normal">
-                  Website
-                </div>
-              </div>
-              <h4 className="block font-sans text-base font-semibold leading-snug tracking-normal text-blue-gray-900 antialiased">
-                เจาะลึกทำความเข้าใจกับ ChatGPT และ AI
-              </h4>
-              <p className="block font-sans text-xs font-normal leading-relaxed text-gray-700 antialiased">
-                publication date
-              </p>
-              <p className=" block font-sans text-xs font-normal leading-relaxed text-gray-700 antialiased">
-                820 views
-              </p>
-
-              <a className="inline-block" href="#">
-                <button
-                  className="flex select-none items-center gap-2 rounded-lg py-2 px-1 text-center align-middle font-sans text-xs font-bold uppercase text-purple-800 transition-all hover:bg-purple-400/10 active:bg-pink-500/30 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-                  type="button"
-                >
-                  Read more
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke-width="2"
-                    stroke="currentColor"
-                    aria-hidden="true"
-                    className="h-4 w-4"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"
-                    ></path>
-                  </svg>
-                </button>
-              </a>
-            </div>
-          </div>
         </div>
       </div>
 

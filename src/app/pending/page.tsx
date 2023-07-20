@@ -1,24 +1,22 @@
 "use client";
 import React from "react";
-import { Rating } from "@material-tailwind/react";
 
 export default function Pending() {
   return (
     <body>
       <div className="p-5 relative bg-gradient-to-b from-purple-600 via-indigo-800 to-slate-700 px-8 py-20">
-        <a href="/">
+        <a href="/#postsection">
           <svg
-            className="icon-arrow-back-circle-sharp mb-5"
+            xmlns="http://www.w3.org/2000/svg"
             width="50"
             height="50"
-            viewBox="0 0 125 125"
             fill="none"
-            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 125 125"
           >
             <path
-              d="M0 62.3446C0 96.775 27.9142 124.689 62.3446 124.689C96.775 124.689 124.689 96.775 124.689 62.3446C124.689 27.9142 96.775 0 62.3446 0C27.9142 0 0 27.9142 0 62.3446ZM67.1403 38.3389L48.0833 57.5489H92.9174V67.1403H48.0833L67.1403 86.3503L60.3364 93.1063L29.8115 62.3446L60.3364 31.5829L67.1403 38.3389Z"
-              fill="white"
-            />
+              fill="#fff"
+              d="M0 62.345c0 34.43 27.914 62.344 62.345 62.344 34.43 0 62.344-27.914 62.344-62.344S96.775 0 62.345 0 0 27.914 0 62.345zm67.14-24.006l-19.057 19.21h44.834v9.591H48.083L67.14 86.35l-6.804 6.756-30.524-30.761 30.524-30.762 6.804 6.756z"
+            ></path>
           </svg>
         </a>
 
@@ -33,8 +31,8 @@ export default function Pending() {
               </div>
               <h1 className="text-3xl font-semibold px-5">TITLE</h1>
               <h4 className="text-xl font-normal px-5">description</h4>
-              <p className="flex-1 pt-5 px-5">publication date</p>
-              <p className="flex-1 pt-2 px-5 pb-5">views</p>
+              <div className="flex-1 pt-5 px-5">publication date</div>
+              <div className="flex-1 pt-2 px-5 pb-5">views</div>
               <div className="flex justify-start px-5 py-5">
                 <span className="px-2  text-base rounded-lg hover:bg-purple-200 text-white hover:text-gray-900 font-semibold">
                   Read more
@@ -50,10 +48,6 @@ export default function Pending() {
           <div className="flex justify-center bg-white container mx-auto  p-8 w-fit">
             <div className=" text-slate-900 font-bold px-5">
               WAS THIS ARTICLE USEFUL FOR YOU?{" "}
-            </div>
-            <Rating />
-            <div className="flex flex-inline px-5">
-              <Rating />
             </div>
           </div>
         </div>
