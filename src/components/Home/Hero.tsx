@@ -6,11 +6,11 @@ export default function Hero() {
       <div className="w-full h-full flex-col justify-start items-start gap-[15px] inline-flex">
         <div className="w-full h-full flex-col justify-start items-start gap-[15px] inline-flex">
           <div className="self-stretch grow shrink basis-0 flex-col justify-start items-start gap-[15px] flex">
-            <div className="whitespace-pre-line self-stretch text-white text-[24px] font-bold leading-normal">
+            <div className="self-stretch text-white text-[24px] font-bold leading-normal">
               AI ecosystem for Thai better living
             </div>
             <div className="whitespace-pre-line self-stretch text-white text-[60px] font-bold leading-10">
-              THAI AI WATCH
+              AI THAI WATCH
             </div>
             <div className="w-3/4 whitespace-normal self-stretch grow shrink basis-0 text-white text-[20px] --font-open-sans">
               Unlock AI's possibilities with our website's insightful articles.
