@@ -5,6 +5,7 @@ import { Tab } from "@headlessui/react";
 import Hero from "@/components/Home/Hero";
 import Panel from "@/components/Home/Panel";
 import ReactStars from "react-rating-star-with-type";
+import clsx from "clsx";
 
 export interface IPostData {
   stat: {
@@ -47,6 +48,23 @@ export default function Home() {
       .catch((err) => console.log(err));
   }, []);
 
+  const getTagColor = (
+    tags: "news" | "articles" | "publications" | "websites"
+  ) => {
+    switch (tags) {
+      case "news":
+        return "bg-blue-500";
+      case "publications":
+        return "bg-red-500";
+      case "articles":
+        return "bg-amber-500";
+      case "websites":
+        return "bg-green-600";
+      default:
+        return "bg-gray-500";
+    }
+  };
+
   const handleSearchChange = (search: any) => {
     setSearchTitle(search.target.value);
   };
@@ -77,9 +95,14 @@ export default function Home() {
             return (
               <div className="w-[300px] min-h-max bg-white shadow-md border border-gray-200 rounded-tl-lg rounded-tr-lg rounded-br-lg">
                 <div className="px-5 py-2">
-                  <div className="w-[120px] h-[25px] mb-3 relative bg-green-600 rounded-lg">
+                  <div
+                    className={clsx(
+                      "w-[75px] mb-1 relative rounded-lg",
+                      getTagColor(response.tags)
+                    )}
+                  >
                     <div className=" text-center text-white text-sm font-semibold leading-normal">
-                      Website
+                      {response.tags[0].toUpperCase() + response.tags.slice(1)}
                     </div>
                   </div>
 

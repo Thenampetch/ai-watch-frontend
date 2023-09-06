@@ -25,7 +25,7 @@ export default function Panel({ tags }: IPanelProps) {
   useEffect(() => {
     axios
       .get(
-        `https://abdul.in.th/ai-news-api/trending${
+        `https://abdul.in.th/ai-news-api/post${
           tags !== "all" && `?tags=${tags}`
         }`
       )
